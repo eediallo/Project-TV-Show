@@ -1,4 +1,13 @@
 #root {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px; 
+  padding: 20px; 
+  justify-content: center; 
+  align-items: flex-start; 
+  background: #ffffff; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
 }
 
 
@@ -14,9 +23,14 @@ border-radius: 2%;
 .episode-title{
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   border: 2px solid white;
   border-radius: 8px;
   padding: 0 5px;
   margin-bottom: 5px;
+}
+
+.episode-img{
+  text-align: center;
 }
