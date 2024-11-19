@@ -37,6 +37,29 @@ section {
   margin-bottom: 5px;
 }
 
+.episode-title h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
 .episode-img {
   text-align: center;
+  width: 100%;
+  object-fit: cover;
+}
+
+#root section p {
+  padding: 10px;
+  font-size: 16px;
+  text-align: justify;
+}
+
+@media (max-width: 768px) {
+  #root {
+    gap: 10px;
+  }
+
+  #root section {
+    width: 100%;
+  }
 }
