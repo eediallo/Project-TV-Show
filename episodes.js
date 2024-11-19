@@ -1853,6 +1853,3 @@ function getAllEpisodes() {
     },
   ];
 }
-
-
-export {getAllEpisodes, getOneEpisode}
