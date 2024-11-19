@@ -26,13 +26,7 @@ function createEpisodeCard(episode){
 }
 
 const allEpisodes = getAllEpisodes()
-const episodeCards = []
-
-for(let episode of allEpisodes){
-const episodeCard = createEpisodeCard(episode)
-episodeCards.push(episodeCard)
-}
-
+const episodeCards = allEpisodes.map(createEpisodeCard)
 const rootElem = document.getElementById("root");
 rootElem.append(...episodeCards)
 
