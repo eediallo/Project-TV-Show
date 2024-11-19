@@ -50,11 +50,11 @@ section {
   border: 2px solid #ffffff;
   color: #ffffff;
   border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
   padding: 0 5px;
   margin-bottom: 5px;
-  background-color: #0078d7;
-  font-size: 18px;
-  font-weight: bold;
+  background-color: #444;
 }
 
 .episode-title h3 {
