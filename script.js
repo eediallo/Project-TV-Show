@@ -15,24 +15,23 @@ function formatEpisode(episode){
   return episode  < 10 ? `E0${episode}` : `E${episode}`
 }
 
-const oneEpisode = getOneEpisode();
-
-function createEpisodeCard(){
+function createEpisodeCard(episode){
   const episodeCard = document.querySelector('#episode-card-template').content.cloneNode(true)
-  episodeCard.querySelector('h3').textContent = oneEpisode.name
-  episodeCard.querySelector('[data-season-number]').textContent = formatSeason(oneEpisode.season)
-  episodeCard.querySelector('[data-episode-number]').textContent = formatEpisode(oneEpisode.number)
-  episodeCard.querySelector('img').setAttribute('src', oneEpisode.image.medium)
-  episodeCard.querySelector('p').textContent = oneEpisode.summary.replace(/<p>|<\/p>/g, '')
+  episodeCard.querySelector('h3').textContent = episode.name
+  episodeCard.querySelector('[data-season-number]').textContent = formatSeason(episode.season)
+  episodeCard.querySelector('[data-episode-number]').textContent = formatEpisode(episode.number)
+  episodeCard.querySelector('img').setAttribute('src', episode.image.medium)
+  episodeCard.querySelector('p').textContent = episode.summary.replace(/<p>|<\/p>/g, '')
   return episodeCard  
 }
 
+const allEpisodes = getAllEpisodes()
+
+for(let episode of allEpisodes){
+const episodeCard = createEpisodeCard(episode)
 const rootElem = document.getElementById("root");
-const episodeCard = createEpisodeCard()
 rootElem.appendChild(episodeCard)
+}
 
 
-
-
-console.log(episodeCard)
 window.onload = setup;
