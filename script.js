@@ -26,12 +26,15 @@ function createEpisodeCard(episode){
 }
 
 const allEpisodes = getAllEpisodes()
+const episodeCards = []
 
 for(let episode of allEpisodes){
 const episodeCard = createEpisodeCard(episode)
-const rootElem = document.getElementById("root");
-rootElem.appendChild(episodeCard)
+episodeCards.push(episodeCard)
 }
+
+const rootElem = document.getElementById("root");
+rootElem.append(...episodeCards)
 
 
 window.onload = setup;
