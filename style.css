@@ -1,3 +1,22 @@
 #root {
-  color: red;
+}
+
+
+section{
+width: 300px;
+background-color: #444;
+color: white;
+padding: 10px;
+margin-bottom: 10px;
+border-radius: 2%;
+}
+
+.episode-title{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid white;
+  border-radius: 8px;
+  padding: 0 5px;
+  margin-bottom: 5px;
 }
