@@ -20,7 +20,7 @@ function formatEpisode(episode){
 function createEpisodeCard(episode){
   const episodeCard = document.querySelector('#episode-card-template').content.cloneNode(true)
   episodeCard.querySelector('h3').textContent = episode.name
-  episodeCard.querySelector('[data-season-episode]').textContent = `${formatSeason(episode.season)}${formatEpisode(episode.number)}`
+  episodeCard.querySelector('[data-season-episode]').textContent = `- ${formatSeason(episode.season)}${formatEpisode(episode.number)}`
   episodeCard.querySelector('img').setAttribute('src', episode.image.medium)
   episodeCard.querySelector('p').textContent = episode.summary.replace(/<p>|<\/p>/g, '')
   return episodeCard  
