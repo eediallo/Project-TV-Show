@@ -3,8 +3,10 @@ function setup() {
   makePageForEpisodes(allEpisodes);
 }
 
-function makePageForEpisodes(episodeList) {
+function makePageForEpisodes(allEpisodes) {
   const rootElem = document.getElementById("root");
+  const episodeList =  allEpisodes.map(createEpisodeCard)
+  rootElem.append(...episodeList)
 }
 
 function formatSeason(season){
@@ -24,11 +26,5 @@ function createEpisodeCard(episode){
   episodeCard.querySelector('p').textContent = episode.summary.replace(/<p>|<\/p>/g, '')
   return episodeCard  
 }
-
-const allEpisodes = getAllEpisodes()
-const episodeCards = allEpisodes.map(createEpisodeCard)
-const rootElem = document.getElementById("root");
-rootElem.append(...episodeCards)
-
 
 window.onload = setup;
