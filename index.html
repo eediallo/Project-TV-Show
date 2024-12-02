@@ -17,9 +17,15 @@
       </p>
     </header>
 
-    <div id="root">
+    <div class="search-panel">
+      <label for="search-input">Search episodes with:</label>
+      <input type="text" id="search-input" placeholder="enter search text" aria-label="Search episodes">
+      <p class = 'display-label'>Displaying <span id ='display-number' >all episodes</span></p>
+    </div>
+
+    <div id="root"> 
       <template id="episode-card-template">
-        <section>
+        <section class = 'episode-card'>
           <div class="episode-title">
             <h1></h1>
             <data data-season-episode></data>

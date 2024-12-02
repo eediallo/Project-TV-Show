@@ -74,6 +74,56 @@ section {
   text-align: justify;
 }
 
+
+.search-panel {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 3px 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    max-width: 700px;
+    background-color: #f9f9f9;
+    position: relative;
+    left: 0;  
+    margin: 10px;
+}
+
+.search-panel label {
+    font-size: 16px;
+    color: #333;
+    margin-right: 10px;
+}
+
+.search-panel input {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.search-panel input:focus {
+    border-color: #3d6866;
+    outline: none;
+}
+
+.display-label {
+    font-size: 18px;  
+    color: #333;     
+    margin: 3px 0;
+    padding: 0; 
+    background-color: #f0f0f0; 
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+}
+
+#display-number {
+    color: #4f3e52; 
+
+}
+
 @media (max-width: 768px) {
   #root {
     gap: 10px;
