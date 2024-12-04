@@ -36,7 +36,7 @@ function createEpisodeCard(episode) {
   return episodeCard;
 }
 
-function searchEpisodeCards(allEpisodes) {
+function searchEpisodeCards() {
   const input = document.getElementById("search-input");
   const cards = document.querySelectorAll(".episode-card");
   const displayNumber = document.getElementById("display-number");
@@ -46,7 +46,7 @@ function searchEpisodeCards(allEpisodes) {
     let countShownEpisodes = 0;
 
     cards.forEach((card) => {
-      const cardText = card.textContent;
+      const cardText = card.textContent.toLowerCase();
 
       if (cardText.includes(searchText)) {
         card.style.display = "block";
