@@ -34,7 +34,7 @@ function createEpisodeCard(episode) {
   episodeCard.querySelector(
     "[data-season-episode]"
   ).textContent = `- ${formatSeasonEpisode(
-    episode.season
+    episode.season, 'season'
   )}${formatSeasonEpisode(episode.number)}`;
   episodeCard.querySelector("img").setAttribute("src", episode.image.medium);
   episodeCard.querySelector("p").textContent = episode.summary.replace(
@@ -86,8 +86,8 @@ function createEpisodeDropDownSelector(allEpisodes) {
     ...allEpisodes.map((episode) => {
       const episodeOption = document.createElement("option");
       episodeOption.value = episode.name;
-      const formattedSeason = `S${formatSeasonEpisode(episode.season)}`;
-      const formattedEpisode = `E${formatSeasonEpisode(episode.number)}`;
+      const formattedSeason = formatSeasonEpisode(episode.season, 'season');
+      const formattedEpisode = formatSeasonEpisode(episode.number);
       const episodeName = episode.name;
       episodeOption.textContent = `${formattedSeason}${formattedEpisode} - ${episodeName}`;
       episodeOption.classList.add("episode-option");
