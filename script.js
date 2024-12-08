@@ -9,15 +9,15 @@ const state = {
 
 function setup() {
   const allEpisodes = state.allEpisodes;
-  render(allEpisodes, "#root");
+  render(allEpisodes, "#root", createEpisodeCard);
   searchEpisodeCards();
   createEpisodeDropDownSelector(allEpisodes);
 }
 
-function render(allEpisodes, elementSelector) {
+function render(allEpisodes, elementSelector, createdElements) {
   const element = document.querySelector(elementSelector);
-  const episodeList = allEpisodes.map(createEpisodeCard);
-  element.append(...episodeList);
+  const elementCreatedList = allEpisodes.map(createdElements);
+  element.append(...elementCreatedList);
 }
 
 function formatSeasonEpisode(seasonOrEpisode, type) {
