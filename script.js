@@ -1,16 +1,20 @@
 const input = document.getElementById("search-input");
 const displayNumber = document.getElementById("display-number");
 
+const state = {
+  allEpisodes: getAllEpisodes(),
+  searchTerm: "",
+};
+
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  makePageForEpisodes();
   searchEpisodeCards();
-  createEpisodeDropDownSelector(allEpisodes);
+  createEpisodeDropDownSelector();
 }
 
-function makePageForEpisodes(allEpisodes) {
+function makePageForEpisodes() {
   const rootElem = document.getElementById("root");
-  const episodeList = allEpisodes.map(createEpisodeCard);
+  const episodeList = state.allEpisodes.map(createEpisodeCard);
   rootElem.append(...episodeList);
 }
 
@@ -39,10 +43,12 @@ function createEpisodeCard(episode) {
   return episodeCard;
 }
 
-const state = {
-  allEpisodes: getAllEpisodes(),
-  searchTerm: "",
-};
+//=================================
+console.log(input.value);
+input.addEventListener("keyup", (event) => {
+  console.log(event.target.value);
+});
+//======================================
 
 function searchEpisodeCards() {
   input.addEventListener("input", (e) => {
@@ -51,7 +57,8 @@ function searchEpisodeCards() {
 }
 
 function renderSelectedEpisodes(e) {
-  const searchText = e.target.value.toLowerCase();
+  state.searchTerm = e.target.value.toLowerCase();
+  console.log(state);
   let countShownEpisodes = 0;
 
   const cards = document.querySelectorAll(".episode-card");
@@ -59,7 +66,7 @@ function renderSelectedEpisodes(e) {
   cards.forEach((card) => {
     const cardText = card.textContent.toLowerCase();
 
-    if (cardText.includes(searchText)) {
+    if (cardText.includes(state.searchTerm)) {
       card.style.display = "block";
       countShownEpisodes += 1;
     } else {
@@ -72,7 +79,7 @@ function renderSelectedEpisodes(e) {
   } `;
 }
 
-function createEpisodeDropDownSelector(allEpisodes) {
+function createEpisodeDropDownSelector() {
   const episodeSelectorTemplate = document.querySelector(
     "#episode-selector-temp"
   );
@@ -86,7 +93,7 @@ function createEpisodeDropDownSelector(allEpisodes) {
   const episodeSelector = document.querySelector("#episode-selector");
 
   episodeSelector.append(
-    ...allEpisodes.map((episode) => {
+    ...state.allEpisodes.map((episode) => {
       const episodeOption = document.createElement("option");
       episodeOption.value = episode.name;
       const formattedSeason = `S${formatSeasonEpisode(episode.season)}`;
