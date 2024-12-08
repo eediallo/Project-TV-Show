@@ -71,25 +71,18 @@ function renderMatchingEpisodes(e) {
   } `;
 }
 
-function createEpisodeDropDownSelector(allEpisodes) {
-  const episodeSelectorTemplate = document.querySelector(
-    "#episode-selector-temp"
-  );
-  const episodeSelectorTemplateClone =
-    episodeSelectorTemplate.content.cloneNode(true);
-  document.body.insertBefore(
-    episodeSelectorTemplateClone,
-    document.querySelector(".search-panel")
-  );
+function createEpisodeDropDownSelector(episode) {
   const episodeOption = document.createElement("option");
   episodeOption.value = episode.name;
   const formattedSeason = formatSeasonEpisode(episode.season, "season");
   const formattedEpisode = formatSeasonEpisode(episode.number);
   const episodeName = episode.name;
   episodeOption.textContent = `${formattedSeason}${formattedEpisode} - ${episodeName}`;
-  episodeOption.classList.add("episode-option");
 
   return episodeOption;
 }
+
+// display all episode in the drop down menu
+render(state.allEpisodes, "#episode-selector", createEpisodeDropDownSelector);
 
 window.onload = setup;
