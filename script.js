@@ -46,11 +46,11 @@ function createEpisodeCard(episode) {
 
 function searchEpisodeCards() {
   input.addEventListener("input", (e) => {
-    renderMatchEpisode(e);
+    renderMatchingEpisodes(e);
   });
 }
 
-function renderMatchEpisode(e) {
+function renderMatchingEpisodes(e) {
   state.searchTerm = e.target.value.toLowerCase();
   let countShownEpisodes = 0;
   const cards = document.querySelectorAll(".episode-card");
@@ -96,7 +96,7 @@ function createEpisodeDropDownSelector(allEpisodes) {
     })
   );
   episodeSelector.addEventListener("change", (event) => {
-    renderSelectedEpisodes(event);
+    renderMatchingEpisodes(event);
   });
 }
 
