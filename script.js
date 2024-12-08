@@ -1,5 +1,6 @@
 const input = document.getElementById("search-input");
 const displayNumber = document.getElementById("display-number");
+const episodeSelector = document.querySelector("#episode-selector");
 
 const state = {
   allEpisodes: getAllEpisodes(),
@@ -8,15 +9,15 @@ const state = {
 
 function setup() {
   const allEpisodes = state.allEpisodes;
-  makePageForEpisodes(allEpisodes);
+  render(allEpisodes, "#root");
   searchEpisodeCards();
   createEpisodeDropDownSelector(allEpisodes);
 }
 
-function makePageForEpisodes(allEpisodes) {
-  const rootElem = document.getElementById("root");
+function render(allEpisodes, elementSelector) {
+  const element = document.querySelector(elementSelector);
   const episodeList = allEpisodes.map(createEpisodeCard);
-  rootElem.append(...episodeList);
+  element.append(...episodeList);
 }
 
 function formatSeasonEpisode(seasonOrEpisode, type) {
@@ -34,7 +35,8 @@ function createEpisodeCard(episode) {
   episodeCard.querySelector(
     "[data-season-episode]"
   ).textContent = `- ${formatSeasonEpisode(
-    episode.season, 'season'
+    episode.season,
+    "season"
   )}${formatSeasonEpisode(episode.number)}`;
   episodeCard.querySelector("img").setAttribute("src", episode.image.medium);
   episodeCard.querySelector("p").textContent = episode.summary.replace(
@@ -79,25 +81,15 @@ function createEpisodeDropDownSelector(allEpisodes) {
     episodeSelectorTemplateClone,
     document.querySelector(".search-panel")
   );
+  const episodeOption = document.createElement("option");
+  episodeOption.value = episode.name;
+  const formattedSeason = formatSeasonEpisode(episode.season, "season");
+  const formattedEpisode = formatSeasonEpisode(episode.number);
+  const episodeName = episode.name;
+  episodeOption.textContent = `${formattedSeason}${formattedEpisode} - ${episodeName}`;
+  episodeOption.classList.add("episode-option");
 
-  const episodeSelector = document.querySelector("#episode-selector");
-
-  episodeSelector.append(
-    ...allEpisodes.map((episode) => {
-      const episodeOption = document.createElement("option");
-      episodeOption.value = episode.name;
-      const formattedSeason = formatSeasonEpisode(episode.season, 'season');
-      const formattedEpisode = formatSeasonEpisode(episode.number);
-      const episodeName = episode.name;
-      episodeOption.textContent = `${formattedSeason}${formattedEpisode} - ${episodeName}`;
-      episodeOption.classList.add("episode-option");
-
-      return episodeOption;
-    })
-  );
-  episodeSelector.addEventListener("change", (event) => {
-    renderMatchingEpisodes(event);
-  });
+  return episodeOption;
 }
 
 window.onload = setup;
