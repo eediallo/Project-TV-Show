@@ -7,14 +7,15 @@ const state = {
 };
 
 function setup() {
-  makePageForEpisodes();
+  const allEpisodes = state.allEpisodes;
+  makePageForEpisodes(allEpisodes);
   searchEpisodeCards();
-  createEpisodeDropDownSelector();
+  createEpisodeDropDownSelector(allEpisodes);
 }
 
-function makePageForEpisodes() {
+function makePageForEpisodes(allEpisodes) {
   const rootElem = document.getElementById("root");
-  const episodeList = state.allEpisodes.map(createEpisodeCard);
+  const episodeList = allEpisodes.map(createEpisodeCard);
   rootElem.append(...episodeList);
 }
 
@@ -43,34 +44,23 @@ function createEpisodeCard(episode) {
   return episodeCard;
 }
 
-//=================================
-console.log(input.value);
-input.addEventListener("keyup", (event) => {
-  console.log(event.target.value);
-});
-//======================================
-
 function searchEpisodeCards() {
   input.addEventListener("input", (e) => {
-    renderSelectedEpisodes(e);
+    renderMatchEpisode(e);
   });
 }
 
-function renderSelectedEpisodes(e) {
+function renderMatchEpisode(e) {
   state.searchTerm = e.target.value.toLowerCase();
-  console.log(state);
   let countShownEpisodes = 0;
-
   const cards = document.querySelectorAll(".episode-card");
-
   cards.forEach((card) => {
     const cardText = card.textContent.toLowerCase();
-
     if (cardText.includes(state.searchTerm)) {
-      card.style.display = "block";
+      card.classList.remove("hidden");
       countShownEpisodes += 1;
     } else {
-      card.style.display = "none";
+      card.classList.add("hidden");
     }
   });
 
@@ -79,7 +69,7 @@ function renderSelectedEpisodes(e) {
   } `;
 }
 
-function createEpisodeDropDownSelector() {
+function createEpisodeDropDownSelector(allEpisodes) {
   const episodeSelectorTemplate = document.querySelector(
     "#episode-selector-temp"
   );
@@ -93,7 +83,7 @@ function createEpisodeDropDownSelector() {
   const episodeSelector = document.querySelector("#episode-selector");
 
   episodeSelector.append(
-    ...state.allEpisodes.map((episode) => {
+    ...allEpisodes.map((episode) => {
       const episodeOption = document.createElement("option");
       episodeOption.value = episode.name;
       const formattedSeason = `S${formatSeasonEpisode(episode.season)}`;
