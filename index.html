@@ -16,11 +16,13 @@
         <a href="https://www.tvmaze.com/">TVMaze</a>
       </p>
     </header>
+
     <section id="drop-down-menu">
       <select name="episode-selector" id="episode-selector">
-        <option value="all-episode">All Episode</option>
+        <option value="all-episode">All Episodes</option>
       </select>
     </section>
+
     <div class="search-panel">
       <label for="search-input">Search episodes with:</label>
       <input
@@ -35,16 +37,7 @@
     </div>
 
     <div id="root">
-      <template id="episode-card-template">
-        <section class="episode-card">
-          <div class="episode-title">
-            <h1></h1>
-            <data data-season-episode></data>
-          </div>
-          <div class="episode-img"><img alt="episode image" /></div>
-          <p></p>
-        </section>
-      </template>
+      <!-- Episode cards will be rendered here -->
     </div>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
