@@ -14,12 +14,11 @@ function makePageForEpisodes(allEpisodes) {
   rootElem.append(...episodeList);
 }
 
-function formatSeason(season) {
-  return season < 10 ? `S0${season}` : `S${season}`;
-}
-
-function formatEpisode(episode) {
-  return episode < 10 ? `E0${episode}` : `E${episode}`;
+function formatSeasonEpisode(seasonOrEpisode, type) {
+  const prefix = type === "season" ? "S" : "E";
+  return seasonOrEpisode < 10
+    ? `${prefix}0${seasonOrEpisode}`
+    : `${prefix}${seasonOrEpisode}`;
 }
 
 function createEpisodeCard(episode) {
@@ -29,9 +28,9 @@ function createEpisodeCard(episode) {
   episodeCard.querySelector("h1").textContent = episode.name;
   episodeCard.querySelector(
     "[data-season-episode]"
-  ).textContent = `- ${formatSeason(episode.season)}${formatEpisode(
-    episode.number
-  )}`;
+  ).textContent = `- ${formatSeasonEpisode(
+    episode.season
+  )}${formatSeasonEpisode(episode.number)}`;
   episodeCard.querySelector("img").setAttribute("src", episode.image.medium);
   episodeCard.querySelector("p").textContent = episode.summary.replace(
     /<p>|<\/p>/g,
@@ -85,8 +84,8 @@ function createEpisodeDropDownSelector(allEpisodes) {
     ...allEpisodes.map((episode) => {
       const episodeOption = document.createElement("option");
       episodeOption.value = episode.name;
-      const formattedSeason = `S${formatSeason(episode.season)}`;
-      const formattedEpisode = `E${formatSeason(episode.number)}`;
+      const formattedSeason = `S${formatSeasonEpisode(episode.season)}`;
+      const formattedEpisode = `E${formatSeasonEpisode(episode.number)}`;
       const episodeName = episode.name;
       episodeOption.textContent = `${formattedSeason}${formattedEpisode} - ${episodeName}`;
       episodeOption.classList.add("episode-option");
