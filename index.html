@@ -19,18 +19,25 @@
 
     <div class="search-panel">
       <label for="search-input">Search episodes with:</label>
-      <input type="text" id="search-input" placeholder="enter search text" aria-label="Search episodes">
-      <p class = 'display-label'>Displaying <span id ='display-number' >all episodes</span></p>
+      <input
+        type="text"
+        id="search-input"
+        placeholder="enter search text"
+        aria-label="Search episodes"
+      />
+      <p class="display-label">
+        Displaying <span id="display-number">all episodes</span>
+      </p>
     </div>
 
-    <div id="root"> 
+    <div id="root">
       <template id="episode-card-template">
-        <section class = 'episode-card'>
+        <section class="episode-card">
           <div class="episode-title">
             <h1></h1>
             <data data-season-episode></data>
           </div>
-          <div class="episode-img"><img alt="episode image"/></div>
+          <div class="episode-img"><img alt="episode image" /></div>
           <p></p>
         </section>
       </template>
@@ -39,7 +46,7 @@
         <select name="episode-selector" id="episode-selector">
           <option value="">All episodes</option>
         </select>
-      </template>  
+      </template>
     </div>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
