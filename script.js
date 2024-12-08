@@ -39,6 +39,11 @@ function createEpisodeCard(episode) {
   return episodeCard;
 }
 
+const state = {
+  allEpisodes: getAllEpisodes(),
+  searchTerm: "",
+};
+
 function searchEpisodeCards() {
   input.addEventListener("input", (e) => {
     renderSelectedEpisodes(e);
