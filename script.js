@@ -1,6 +1,6 @@
 const searchInput = document.getElementById("search-input");
 const displayNumber = document.getElementById("display-number");
-const episodeSelector = document.querySelector("#episode-selector");
+const episodeSelector = document.getElementById("episode-selector");
 
 const state = {
   allEpisodes: getAllEpisodes(),
@@ -8,23 +8,98 @@ const state = {
 };
 
 function setup() {
-  const allEpisodes = state.allEpisodes;
-  render(allEpisodes, "#root", createEpisodeCard);
-  addEventListener(searchInput, "input");
-  render(state.allEpisodes, "#episode-selector", createEpisodeDropDownSelector);
-  addEventListener(episodeSelector, "change");
+  renderEpisodes(state.allEpisodes);
+  renderEpisodeOptions(state.allEpisodes);
+  addEventListeners();
 }
 
-function render(allEpisodes, elementSelector, createdElements) {
-  const element = document.querySelector(elementSelector);
-  const elementCreatedList = allEpisodes.map(createdElements);
-  element.append(...elementCreatedList);
+function renderEpisodes(episodes) {
+  const rootElement = document.getElementById("root");
+  rootElement.innerHTML = ""; // Clear previous content
+  const episodeCards = episodes.map(createEpisodeCard);
+  rootElement.append(...episodeCards);
 }
 
-function addEventListener(element, event) {
-  element.addEventListener(event, (e) => {
-    renderMatchingEpisodes(e);
+function renderEpisodeOptions(episodes) {
+  const episodeSelector = document.getElementById("episode-selector");
+  episodeSelector.innerHTML = ""; // Clear previous options
+  const allOption = document.createElement("option");
+  allOption.value = "all-episode";
+  allOption.textContent = "All Episodes";
+  episodeSelector.appendChild(allOption);
+
+  const episodeOptions = episodes.map(createEpisodeOption);
+  episodeSelector.append(...episodeOptions);
+}
+
+function addEventListeners() {
+  searchInput.addEventListener("input", handleSearchAndFilter);
+  episodeSelector.addEventListener("change", handleSearchAndFilter);
+}
+
+function handleSearchAndFilter() {
+  const searchTerm = searchInput.value.toLowerCase();
+  const selectedEpisode = episodeSelector.value.toLowerCase();
+  state.searchTerm =
+    selectedEpisode === "all-episode" ? searchTerm : selectedEpisode;
+
+  const filteredEpisodes = state.allEpisodes.filter((episode) => {
+    const episodeText = `${episode.name} ${episode.summary}`.toLowerCase();
+    return episodeText.includes(state.searchTerm);
   });
+
+  renderEpisodes(filteredEpisodes);
+  displayNumber.textContent = `${filteredEpisodes.length} / ${
+    state.allEpisodes.length
+  } episode${filteredEpisodes.length !== 1 ? "s" : ""}`;
+}
+
+function createEpisodeCard(episode) {
+  const episodeCard = document.createElement("section");
+  episodeCard.classList.add("episode-card");
+
+  const episodeTitle = document.createElement("div");
+  episodeTitle.classList.add("episode-title");
+
+  const h1 = document.createElement("h1");
+  h1.textContent = episode.name;
+
+  const data = document.createElement("data");
+  data.setAttribute("data-season-episode", "");
+  data.textContent = `- ${formatSeasonEpisode(
+    episode.season,
+    "season"
+  )}${formatSeasonEpisode(episode.number)}`;
+
+  episodeTitle.appendChild(h1);
+  episodeTitle.appendChild(data);
+
+  const episodeImg = document.createElement("div");
+  episodeImg.classList.add("episode-img");
+
+  const img = document.createElement("img");
+  img.setAttribute("src", episode.image.medium);
+  img.setAttribute("alt", "episode image");
+
+  episodeImg.appendChild(img);
+
+  const p = document.createElement("p");
+  p.innerHTML = episode.summary.replace(/<p>|<\/p>/g, "");
+
+  episodeCard.appendChild(episodeTitle);
+  episodeCard.appendChild(episodeImg);
+  episodeCard.appendChild(p);
+
+  return episodeCard;
+}
+
+function createEpisodeOption(episode) {
+  const episodeOption = document.createElement("option");
+  episodeOption.value = episode.name;
+  const formattedSeason = formatSeasonEpisode(episode.season, "season");
+  const formattedEpisode = formatSeasonEpisode(episode.number);
+  episodeOption.textContent = `${formattedSeason}${formattedEpisode} - ${episode.name}`;
+  return episodeOption;
 }
 
 function formatSeasonEpisode(seasonOrEpisode, type) {
@@ -32,55 +107,6 @@ function formatSeasonEpisode(seasonOrEpisode, type) {
   return seasonOrEpisode < 10
     ? `${prefix}0${seasonOrEpisode}`
     : `${prefix}${seasonOrEpisode}`;
-}
-
-function createEpisodeCard(episode) {
-  const episodeCard = document
-    .querySelector("#episode-card-template")
-    .content.cloneNode(true);
-  episodeCard.querySelector("h1").textContent = episode.name;
-  episodeCard.querySelector(
-    "[data-season-episode]"
-  ).textContent = `- ${formatSeasonEpisode(
-    episode.season,
-    "season"
-  )}${formatSeasonEpisode(episode.number)}`;
-  episodeCard.querySelector("img").setAttribute("src", episode.image.medium);
-  episodeCard.querySelector("p").textContent = episode.summary.replace(
-    /<p>|<\/p>/g,
-    ""
-  );
-  return episodeCard;
-}
-
-function renderMatchingEpisodes(e) {
-  const selectedValue = e.target.value.toLowerCase();
-  state.searchTerm = selectedValue === "all-episode" ? "" : selectedValue;
-  let countShownEpisodes = 0;
-  const cards = document.querySelectorAll(".episode-card");
-  cards.forEach((card) => {
-    const cardText = card.textContent.toLowerCase();
-    if (cardText.includes(state.searchTerm)) {
-      card.classList.remove("hidden");
-      countShownEpisodes += 1;
-    } else {
-      card.classList.add("hidden");
-    }
-  });
-
-  displayNumber.textContent = `${countShownEpisodes} / 73 episode${
-    countShownEpisodes !== 1 ? "s" : ""
-  } `;
-}
-
-function createEpisodeDropDownSelector(episode) {
-  const episodeOption = document.createElement("option");
-  episodeOption.value = episode.name;
-  const formattedSeason = formatSeasonEpisode(episode.season, "season");
-  const formattedEpisode = formatSeasonEpisode(episode.number);
-  const episodeName = episode.name;
-  episodeOption.textContent = `${formattedSeason}${formattedEpisode} - ${episodeName}`;
-  return episodeOption;
 }
 
 window.onload = setup;
