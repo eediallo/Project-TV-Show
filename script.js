@@ -1,4 +1,4 @@
-const input = document.getElementById("search-input");
+const searchInput = document.getElementById("search-input");
 const displayNumber = document.getElementById("display-number");
 const episodeSelector = document.querySelector("#episode-selector");
 
@@ -10,13 +10,21 @@ const state = {
 function setup() {
   const allEpisodes = state.allEpisodes;
   render(allEpisodes, "#root", createEpisodeCard);
+  addEventListener(searchInput, "input");
   render(state.allEpisodes, "#episode-selector", createEpisodeDropDownSelector);
+  addEventListener(episodeSelector, "change");
 }
 
 function render(allEpisodes, elementSelector, createdElements) {
   const element = document.querySelector(elementSelector);
   const elementCreatedList = allEpisodes.map(createdElements);
   element.append(...elementCreatedList);
+}
+
+function addEventListener(element, event) {
+  element.addEventListener(event, (e) => {
+    renderMatchingEpisodes(e);
+  });
 }
 
 function formatSeasonEpisode(seasonOrEpisode, type) {
@@ -45,9 +53,6 @@ function createEpisodeCard(episode) {
   return episodeCard;
 }
 
-input.addEventListener("input", (e) => {
-  renderMatchingEpisodes(e);
-});
 function renderMatchingEpisodes(e) {
   const selectedValue = e.target.value.toLowerCase();
   state.searchTerm = selectedValue === "all-episode" ? "" : selectedValue;
@@ -77,9 +82,5 @@ function createEpisodeDropDownSelector(episode) {
   episodeOption.textContent = `${formattedSeason}${formattedEpisode} - ${episodeName}`;
   return episodeOption;
 }
-
-episodeSelector.addEventListener("change", (e) => {
-  renderMatchingEpisodes(e);
-});
 
 window.onload = setup;
