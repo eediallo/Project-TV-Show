@@ -1,16 +1,23 @@
 const searchInput = document.getElementById("search-input");
 const displayNumber = document.getElementById("display-number");
 const episodeSelector = document.getElementById("episode-selector");
+const rootElement = document.getElementById("root");
 
 const state = {
   allEpisodes: [],
   searchTerm: "",
+  isLoading: false,
 };
 
 // fetch data
 async function getEpisodesData() {
-  const url = " https://api.tvmaze.com/shows/82/episodes";
+  const url = "https://api.tvmaze.com/shows/82/episodes";
+  const loadingMessage = document.createElement("p");
+  loadingMessage.textContent = "Please wait while episodes finish loading...";
+  rootElement.appendChild(loadingMessage);
+
   try {
+    state.isLoading = true;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Response Status: ${response.status}`);
@@ -18,13 +25,16 @@ async function getEpisodesData() {
 
     const episodes = await response.json();
     // update allEpisodes in state
-    state.allEpisodes = episodes
+    state.allEpisodes = episodes;
+    state.isLoading = false;
   } catch (error) {
     console.error(error.message);
+  } finally {
+    loadingMessage.remove();
   }
 }
 
-getEpisodesData()
+getEpisodesData();
 
 function setup() {
   renderEpisodes(state.allEpisodes);
@@ -33,7 +43,6 @@ function setup() {
 }
 
 function renderEpisodes(episodes) {
-  const rootElement = document.getElementById("root");
   rootElement.innerHTML = ""; // Clear previous content
   const episodeCards = episodes.map(createEpisodeCard);
   rootElement.append(...episodeCards);
