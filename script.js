@@ -9,9 +9,8 @@ const state = {
   isLoading: false,
 };
 
-// fetch data
 async function getEpisodesData() {
-  const url = "https://api.tvmaze.com/shows/82/episodes";
+  const url = "https://api.tvmaze.com/shows/82/episode";
   const loadingMessage = document.createElement("p");
   loadingMessage.textContent = "Please wait while episodes finish loading...";
   rootElement.appendChild(loadingMessage);
@@ -24,13 +23,20 @@ async function getEpisodesData() {
     }
 
     const episodes = await response.json();
-    // update allEpisodes in state
-    state.allEpisodes = episodes;
+    state.allEpisodes = episodes; // update allEpisodes in state
     state.isLoading = false;
   } catch (error) {
     console.error(error.message);
+    const errorMessage = document.createElement("p");
+    errorMessage.textContent =
+      "Episodes failed to load, please refresh the page.";
+    errorMessage.style.color = "red";
+    document.body.appendChild(errorMessage);
   } finally {
-    loadingMessage.remove();
+    if (state.isLoading) {
+      loadingMessage.remove();
+    }
+    state.isLoading = false;
   }
 }
 
