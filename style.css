@@ -135,3 +135,9 @@ section {
 .hidden {
   display: none;
 }
+
+#errLoadMsg {
+  text-align: center;
+  font-size: 20px;
+  color: red;
+}
