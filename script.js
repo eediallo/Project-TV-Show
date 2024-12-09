@@ -17,7 +17,7 @@ function messageForUser(message, parentEl, id) {
 }
 
 async function getEpisodesData() {
-  const url = "https://api.tvmaze.com/shows/82/episode";
+  const url = "https://api.tvmaze.com/shows/82/episodes";
   messageForUser(
     "Please wait while episodes data finish loading...",
     rootElement,
