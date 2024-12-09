@@ -17,6 +17,10 @@ function messageForUser(message, parentEl, id) {
 }
 
 async function getEpisodesData() {
+  if (state.isLoading) {
+    console.warn("Fetch already in progress. Please wait.");
+    return;
+  }
   const url = "https://api.tvmaze.com/shows/82/episodes";
   messageForUser(
     "Please wait while episodes data finish loading...",
@@ -32,7 +36,6 @@ async function getEpisodesData() {
 
     const episodes = await response.json();
     state.allEpisodes = episodes; // update allEpisodes in state
-    state.isLoading = false;
   } catch (error) {
     console.error(error.message);
     messageForUser(
@@ -42,10 +45,10 @@ async function getEpisodesData() {
     );
     document.body.appendChild(errorMessage);
   } finally {
+    state.isLoading = false;
     if (state.isLoading) {
       loadingMessage.remove();
     }
-    state.isLoading = false;
   }
 }
 
