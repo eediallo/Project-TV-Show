@@ -9,12 +9,20 @@ const state = {
   isLoading: false,
 };
 
+function messageForUser(message, parentEl, id) {
+  const pElement = document.createElement("p");
+  pElement.textContent = message;
+  pElement.setAttribute("id", id);
+  parentEl.appendChild(pElement);
+}
+
 async function getEpisodesData() {
   const url = "https://api.tvmaze.com/shows/82/episode";
-  const loadingMessage = document.createElement("p");
-  loadingMessage.textContent = "Please wait while episodes finish loading...";
-  rootElement.appendChild(loadingMessage);
-
+  messageForUser(
+    "Please wait while episodes data finish loading...",
+    rootElement,
+    "loadMsg"
+  );
   try {
     state.isLoading = true;
     const response = await fetch(url);
@@ -27,10 +35,11 @@ async function getEpisodesData() {
     state.isLoading = false;
   } catch (error) {
     console.error(error.message);
-    const errorMessage = document.createElement("p");
-    errorMessage.textContent =
-      "Episodes failed to load, please refresh the page.";
-    errorMessage.style.color = "red";
+    messageForUser(
+      "Episodes failed to load, please refresh the page.",
+      document.body,
+      "errLoadMsg"
+    );
     document.body.appendChild(errorMessage);
   } finally {
     if (state.isLoading) {
