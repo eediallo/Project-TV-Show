@@ -3,9 +3,28 @@ const displayNumber = document.getElementById("display-number");
 const episodeSelector = document.getElementById("episode-selector");
 
 const state = {
-  allEpisodes: getAllEpisodes(),
+  allEpisodes: [],
   searchTerm: "",
 };
+
+// fetch data
+async function getEpisodesData() {
+  const url = " https://api.tvmaze.com/shows/82/episodes";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response Status: ${response.status}`);
+    }
+
+    const episodes = await response.json();
+    // update allEpisodes in state
+    state.allEpisodes = episodes
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+getEpisodesData()
 
 function setup() {
   renderEpisodes(state.allEpisodes);
