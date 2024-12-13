@@ -33,9 +33,9 @@ async function getEpisodesData() {
     if (!response.ok) {
       throw new Error(`Response Status: ${response.status}`);
     }
-
+    
     const episodes = await response.json();
-    state.allEpisodes = episodes; // update allEpisodes in state
+    state.allEpisodes = episodes;// update allEpisodes in state
   } catch (error) {
     console.error(error.message);
     messageForUser(
@@ -52,9 +52,10 @@ async function getEpisodesData() {
   }
 }
 
-getEpisodesData();
+// getEpisodesData();
 
-function setup() {
+async function setup() {
+  await getEpisodesData();
   renderEpisodes(state.allEpisodes);
   renderEpisodeOptions(state.allEpisodes);
   addEventListeners();
