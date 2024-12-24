@@ -141,3 +141,27 @@ section {
   font-size: 20px;
   color: red;
 }
+
+section {
+  background-color: #f4f4f4; 
+  padding: 10px; 
+  border-radius: 8px;
+  width: 300px;
+  margin-left: 60px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+select {
+  width: 100%; 
+  padding: 10px; 
+  font-size: 16px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  background-color: #fff; 
+  transition: border-color 0.3s ease-in-out;
+}
+
+select:focus {
+  border-color: #007bff; 
+  outline: none; 
+}
