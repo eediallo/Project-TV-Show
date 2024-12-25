@@ -1,5 +1,5 @@
 import { state } from "./state.js";
-import { messageForUser } from "./msgToUser.js";
+import { messageForUser } from "../ui/msgToUser.js";
 import { rootElement } from "../ui/domElements.js";
 
 async function getShows() {
