@@ -1,13 +1,13 @@
-import { getEpisodeData } from "../../data/getEpisode.js";
+import { getEpisodeData } from "../data/getEpisode.js";
 import {
   episodeDropDown,
   backToShowsBtn,
   showDropDown,
-} from "../domElements.js";
-import { state } from "../../data/state.js";
-import { renderEpisodeOptions } from "../episodes/renderEpisodeOption.js";
-import { render } from "../render.js";
-import { createEpisodeCard } from "../episodes/createEpisodeCard.js";
+} from "../ui/domElements.js";
+import { state } from "../data/state.js";
+import { renderEpisodeOptions } from "../ui/episodes/renderEpisodeOption.js";
+import { render } from "../ui/render.js";
+import { createEpisodeCard } from "../ui/episodes/createEpisodeCard.js";
 
 async function handleShowChange(e) {
   await getEpisodeData(e.target.value);

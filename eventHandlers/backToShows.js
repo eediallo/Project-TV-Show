@@ -1,14 +1,14 @@
-import { renderShowsOptions } from "../shows/showOption.js";
-import { getShows } from "../../data/getShows.js";
-import { render } from "../render.js";
-import { state } from "../../data/state.js";
+import { renderShowsOptions } from "../ui/shows/showOption.js";
+import { getShows } from "../data/getShows.js";
+import { render } from "../ui/render.js";
+import { state } from "../data/state.js";
 import {
   episodeDropDown,
   showDropDown,
   backToShowsBtn,
   showSelector,
-} from "../domElements.js";
-import { createShowCard } from "../shows/createShowCard.js";
+} from "../ui/domElements.js";
+import { createShowCard } from "../ui/shows/createShowCard.js";
 
 async function handleBackToShows() {
   episodeDropDown.style.display = "none";
