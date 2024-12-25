@@ -1,10 +1,12 @@
 const searchInput = document.getElementById("search-input");
 const displayNumber = document.getElementById("display-number");
 const episodeSelector = document.getElementById("episode-selector");
+const showSeletor = document.getElementById('show-selector');
 const rootElement = document.getElementById("root");
 
 const state = {
   allEpisodes: [],
+  allShows: [],
   searchTerm: "",
   isLoading: false,
 };
@@ -16,12 +18,48 @@ function messageForUser(message, parentEl, id) {
   parentEl.appendChild(pElement);
 }
 
-async function getEpisodesData() {
+async function getShows() {
+    if (state.isLoading) {
+      console.warn("Fetch already in progress. Please wait.");
+      return;
+    }
+    const url = "https://api.tvmaze.com/shows";
+    messageForUser(
+      "Please wait while shows data finish loading...",
+      rootElement,
+      "loadMsg"
+    );
+    try {
+      state.isLoading = true;
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response Status: ${response.status}`);
+      }
+
+      const shows = await response.json();
+      state.allShows = shows; 
+    } catch (error) {
+      console.error(error.message);
+      messageForUser(
+        "Shows failed to load, please refresh the page.",
+        document.body,
+        "errLoadMsg"
+      );
+      document.body.appendChild(errorMessage);
+    } finally {
+      state.isLoading = false;
+      if (state.isLoading) {
+        loadingMessage.remove();
+      }
+    }
+}
+
+async function getEpisodesData(id) {
   if (state.isLoading) {
     console.warn("Fetch already in progress. Please wait.");
     return;
   }
-  const url = "https://api.tvmaze.com/shows/82/episodes";
+  const url = `https://api.tvmaze.com/shows/${id}/episodes`;
   messageForUser(
     "Please wait while episodes data finish loading...",
     rootElement,
@@ -33,9 +71,9 @@ async function getEpisodesData() {
     if (!response.ok) {
       throw new Error(`Response Status: ${response.status}`);
     }
-
+    
     const episodes = await response.json();
-    state.allEpisodes = episodes; // update allEpisodes in state
+    state.allEpisodes = episodes;// update allEpisodes in state
   } catch (error) {
     console.error(error.message);
     messageForUser(
@@ -52,23 +90,46 @@ async function getEpisodesData() {
   }
 }
 
-getEpisodesData();
+async function setup() {
+  await getShows();
+  renderShows(state.allShows);
 
-function setup() {
+  await getEpisodesData(1);
   renderEpisodes(state.allEpisodes);
   renderEpisodeOptions(state.allEpisodes);
   addEventListeners();
 }
 
+// ==================== Shows ==================================================
+
+function createShowOption(show) {
+  const showOption = document.createElement("option");
+  showOption.value = show.id; 
+  showOption.textContent = `${show.id} - ${show.name}`;
+  return showOption;
+}
+
+function renderShows(shows) {
+  const showOptions = shows.map(createShowOption);
+  showSeletor.append(...showOptions);
+}
+
+showSeletor.addEventListener('change', async (e) => {
+  await getEpisodesData(e.target.value);
+  renderEpisodes(state.allEpisodes);
+  renderEpisodeOptions(state.allEpisodes);
+})
+// ====================== Episodes =============================================
+
 function renderEpisodes(episodes) {
-  rootElement.innerHTML = ""; // Clear previous content
+  rootElement.innerHTML = ""; 
   const episodeCards = episodes.map(createEpisodeCard);
   rootElement.append(...episodeCards);
 }
 
 function renderEpisodeOptions(episodes) {
   const episodeSelector = document.getElementById("episode-selector");
-  episodeSelector.innerHTML = ""; // Clear previous options
+  episodeSelector.innerHTML = ""; 
   const allOption = document.createElement("option");
   allOption.value = "all-episode";
   allOption.textContent = "All Episodes";
