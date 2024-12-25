@@ -12,7 +12,7 @@ import { renderShowsOptions } from "./ui/shows/showOption.js";
 import { render } from "./ui/render.js";
 
 import { createShowCard } from "./ui/shows/createShowCard.js";
-import { addEventListeners } from "./eventHandlers/events.js";
+import { addEventListeners } from "./handlers/events.js";
 
 async function setup() {
   await getShows();
