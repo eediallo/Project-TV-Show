@@ -7,6 +7,7 @@ import {
   rootElement,
 } from "./js/domElements.js";
 import { state } from "./js/state.js";
+import { getEpisodeData } from "./js/episodes.js";
 
 function messageForUser(message, parentEl, id) {
   const pElement = document.createElement("p");
@@ -15,47 +16,47 @@ function messageForUser(message, parentEl, id) {
   parentEl.appendChild(pElement);
 }
 
-async function getEpisodesData(id) {
-  if (state.isLoading) {
-    console.warn("Fetch already in progress. Please wait.");
-    return;
-  }
-  const url = `https://api.tvmaze.com/shows/${id}/episodes`;
-  messageForUser(
-    "Please wait while episodes data finish loading...",
-    rootElement,
-    "loadMsg"
-  );
-  try {
-    state.isLoading = true;
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response Status: ${response.status}`);
-    }
+// async function getEpisodesData(id) {
+//   if (state.isLoading) {
+//     console.warn("Fetch already in progress. Please wait.");
+//     return;
+//   }
+//   const url = `https://api.tvmaze.com/shows/${id}/episodes`;
+//   messageForUser(
+//     "Please wait while episodes data finish loading...",
+//     rootElement,
+//     "loadMsg"
+//   );
+//   try {
+//     state.isLoading = true;
+//     const response = await fetch(url);
+//     if (!response.ok) {
+//       throw new Error(`Response Status: ${response.status}`);
+//     }
 
-    const episodes = await response.json();
-    state.allEpisodes = episodes; // update allEpisodes in state
-  } catch (error) {
-    console.error(error.message);
-    messageForUser(
-      "Episodes failed to load, please refresh the page.",
-      document.body,
-      "errLoadMsg"
-    );
-    document.body.appendChild(errorMessage);
-  } finally {
-    state.isLoading = false;
-    if (state.isLoading) {
-      loadingMessage.remove();
-    }
-  }
-}
+//     const episodes = await response.json();
+//     state.allEpisodes = episodes; // update allEpisodes in state
+//   } catch (error) {
+//     console.error(error.message);
+//     messageForUser(
+//       "Episodes failed to load, please refresh the page.",
+//       document.body,
+//       "errLoadMsg"
+//     );
+//     document.body.appendChild(errorMessage);
+//   } finally {
+//     state.isLoading = false;
+//     if (state.isLoading) {
+//       loadingMessage.remove();
+//     }
+//   }
+// }
 
 async function setup() {
   await getShows();
   renderShows(state.allShows);
 
-  await getEpisodesData(1);
+  await getEpisodeData(1);
   renderEpisodes(state.allEpisodes);
   renderEpisodeOptions(state.allEpisodes);
   addEventListeners();
