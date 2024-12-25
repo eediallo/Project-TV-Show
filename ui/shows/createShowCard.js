@@ -5,7 +5,7 @@ function createShowCard(show) {
   const img = new Image();
   img.setAttribute("src", show.image.medium);
   const summary = document.createElement("p");
-  summary.textContent = show.summary;
+  summary.innerHTML = show.summary.replace('/<p>/g', '');
 
   const genres = document.createElement("p");
   genres.textContent = `Genres: ${show.genres[0]} | ${show.genres[1]} `;
