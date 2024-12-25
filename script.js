@@ -26,19 +26,15 @@ showSeletor.addEventListener("change", async (e) => {
   await getEpisodeData(e.target.value);
 
   episodeDropDown.style.display = "block";
-  showDropDown.style.display = 'none'
+  showDropDown.style.display = "none";
 
   renderEpisodeOptions(state.allEpisodes);
   render(state.allEpisodes, createEpisodeCard);
 });
 
 function addEventListeners() {
-  searchInput.addEventListener("input", () => {
-    handleSearchAndFilter(state.allShows, createShowCard);
-  });
-  episodeSelector.addEventListener("change", () => {
-    handleSearchAndFilter(state.allEpisodes, createEpisodeCard);
-  });
+  searchInput.addEventListener("input", handleSearchAndFilter);
+  episodeSelector.addEventListener("change", handleSearchAndFilter);
 }
 
 window.onload = setup;

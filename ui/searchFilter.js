@@ -1,25 +1,32 @@
 import { render } from "./render.js";
-import { searchInput, episodeSelector, displayNumber } from "./domElements.js";
+import { searchInput, episodeSelector, displayNumber, episodeDropDown } from "./domElements.js";
 import { state } from "../data/state.js";
+import { createShowCard } from "./shows/createShowCard.js";
+import { createEpisodeCard } from "./episodes/createEpisodeCard.js";
 
-function handleSearchAndFilter(showsOrEpisodes, createCard) {
+function handleSearchAndFilter() {
   const searchTerm = searchInput.value.toLowerCase();
-  const selectedEpisodeOrShow = episodeSelector.value.toLowerCase();
-  state.searchTerm =
-    selectedEpisodeOrShow === "all-episode"
-      ? searchTerm
-      : selectedEpisodeOrShow;
+  let filteredItems = [];
 
-  const filteredEpisodesOrShows = showsOrEpisodes.filter((episodeOrShow) => {
-    const episodeOrShowText =
-      `${episodeOrShow.name} ${episodeOrShow.summary}`.toLowerCase();
-    return episodeOrShowText.includes(state.searchTerm);
-  });
+  if (episodeDropDown.style.display === "none") {
+    // Filtering shows
+    filteredItems = state.allShows.filter((show) => {
+      const showText = `${show.name} ${show.summary}`.toLowerCase();
+      return showText.includes(searchTerm);
+    });
+    render(filteredItems, createShowCard);
+  } else {
+    // Filtering episodes
+    filteredItems = state.allEpisodes.filter((episode) => {
+      const episodeText = `${episode.name} ${episode.summary}`.toLowerCase();
+      return episodeText.includes(searchTerm);
+    });
+    render(filteredItems, createEpisodeCard);
+  }
 
-  render(filteredEpisodesOrShows, createCard);
-  displayNumber.textContent = `${filteredEpisodesOrShows.length} / ${
-    showsOrEpisodes.length
-  } show${filteredEpisodesOrShows.length !== 1 ? "s" : ""}`;
+  displayNumber.textContent = `${filteredItems.length} / ${
+    episodeDropDown.style.display === "none" ? state.allShows.length : state.allEpisodes.length
+  } item${filteredItems.length !== 1 ? "s" : ""}`;
 }
 
 export { handleSearchAndFilter };
