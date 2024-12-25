@@ -54,12 +54,12 @@ async function getShows() {
     }
 }
 
-async function getEpisodesData() {
+async function getEpisodesData(id) {
   if (state.isLoading) {
     console.warn("Fetch already in progress. Please wait.");
     return;
   }
-  const url = "https://api.tvmaze.com/shows/82/episodes";
+  const url = `https://api.tvmaze.com/shows/${id}/episodes`;
   messageForUser(
     "Please wait while episodes data finish loading...",
     rootElement,
@@ -91,20 +91,20 @@ async function getEpisodesData() {
 }
 
 async function setup() {
-  await getEpisodesData();
+  await getShows();
+  renderShows(state.allShows);
+
+  await getEpisodesData(1);
   renderEpisodes(state.allEpisodes);
   renderEpisodeOptions(state.allEpisodes);
   addEventListeners();
-
-  await getShows();
-  renderShows(state.allShows);
 }
 
 // ==================== Shows ==================================================
 
 function createShowOption(show) {
   const showOption = document.createElement("option");
-  showOption.value = show.name;
+  showOption.value = show.id; 
   showOption.textContent = `${show.id} - ${show.name}`;
   return showOption;
 }
@@ -114,17 +114,22 @@ function renderShows(shows) {
   showSeletor.append(...showOptions);
 }
 
+showSeletor.addEventListener('change', async (e) => {
+  await getEpisodesData(e.target.value);
+  renderEpisodes(state.allEpisodes);
+  renderEpisodeOptions(state.allEpisodes);
+})
 // ====================== Episodes =============================================
 
 function renderEpisodes(episodes) {
-  rootElement.innerHTML = ""; // Clear previous content
+  rootElement.innerHTML = ""; 
   const episodeCards = episodes.map(createEpisodeCard);
   rootElement.append(...episodeCards);
 }
 
 function renderEpisodeOptions(episodes) {
   const episodeSelector = document.getElementById("episode-selector");
-  episodeSelector.innerHTML = ""; // Clear previous options
+  episodeSelector.innerHTML = ""; 
   const allOption = document.createElement("option");
   allOption.value = "all-episode";
   allOption.textContent = "All Episodes";
