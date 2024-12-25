@@ -8,7 +8,7 @@ function handleSearchAndFilter() {
   const searchTerm = searchInput.value.toLowerCase();
   let filteredItems = [];
   let itemType = "";
-
+  
   if (episodeDropDown.style.display === "none") {
     itemType = filterShows(filteredItems, state.allShows, searchTerm);
   } else {

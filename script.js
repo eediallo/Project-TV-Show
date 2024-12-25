@@ -15,6 +15,7 @@ import { renderEpisodeOptions } from "./ui/episodes/renderEpisodeOption.js";
 import { handleSearchAndFilter } from "./ui/searchFilter.js";
 import { createShowCard } from "./ui/shows/createShowCard.js";
 import { createEpisodeCard } from "./ui/episodes/createEpisodeCard.js";
+import { filterEpisodesBySelector } from "./ui/episodes/filterEpisodesBySelector.js";
 
 async function setup() {
   await getShows();
@@ -46,7 +47,7 @@ async function handleBackToShows() {
 
 function addEventListeners() {
   searchInput.addEventListener("input", handleSearchAndFilter);
-  episodeSelector.addEventListener("change", handleSearchAndFilter);
+  episodeSelector.addEventListener("change", filterEpisodesBySelector);
   showSelector.addEventListener("change", handleShowChange);
   backToShowsBtn.addEventListener("click", handleBackToShows);
 }
