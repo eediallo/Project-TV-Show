@@ -7,9 +7,9 @@ function createShowOption(show) {
   return showOption;
 }
 
-function renderShows(shows) {
+function renderShowsOptions(shows) {
   const showOptions = shows.map(createShowOption);
   showSeletor.append(...showOptions);
 }
 
-export { renderShows };
+export { renderShowsOptions };
