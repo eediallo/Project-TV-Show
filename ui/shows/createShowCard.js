@@ -1,5 +1,4 @@
 function createShowCard(show) {
-  console.log(show);
   const showCard = document.createElement("section");
   showCard.classList.add("show-card");
 

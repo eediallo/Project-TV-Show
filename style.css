@@ -42,32 +42,6 @@ section {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.episode-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  border: 2px solid #ffffff;
-  color: #ffffff;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 0 5px;
-  margin-bottom: 5px;
-  background-color: #444;
-}
-
-.episode-title h3 {
-  margin: 0;
-  font-size: 20px;
-}
-
-.episode-img {
-  text-align: center;
-  width: 100%;
-  object-fit: cover;
-}
-
 #root section p {
   padding: 10px;
   font-size: 16px;
