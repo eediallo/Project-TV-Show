@@ -1,5 +1,5 @@
 import { createEpisodeCard } from "./createEpisodeCard.js";
-import { rootElement } from "../../js/domElements.js";
+import { rootElement } from "../domElements.js";
 
 function renderEpisodes(episodes) {
   rootElement.innerHTML = "";
