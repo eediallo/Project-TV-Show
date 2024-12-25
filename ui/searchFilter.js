@@ -19,7 +19,7 @@ function handleSearchAndFilter(showsOrEpisodes, createCard) {
   render(filteredEpisodesOrShows, createCard);
   displayNumber.textContent = `${filteredEpisodesOrShows.length} / ${
     showsOrEpisodes.length
-  } episode${filteredEpisodesOrShows.length !== 1 ? "s" : ""}`;
+  } show${filteredEpisodesOrShows.length !== 1 ? "s" : ""}`;
 }
 
 export { handleSearchAndFilter };
