@@ -10,37 +10,45 @@ function handleSearchAndFilter() {
   let itemType = "";
 
   if (episodeDropDown.style.display === "none") {
-    filterShows(filteredItems, state.allShows, searchTerm, itemType);
+    itemType = filterShows(filteredItems, state.allShows, searchTerm);
   } else {
-    filterEpisodes(filteredItems, state.allEpisodes, searchTerm, itemType);
+    itemType = filterEpisodes(filteredItems, state.allEpisodes, searchTerm);
   }
 
-  displayNumber.textContent = `${filteredItems.length} / ${
-    episodeDropDown.style.display === "none"
-      ? state.allShows.length
-      : state.allEpisodes.length
-  } ${itemType}${filteredItems.length !== 1 ? "s" : ""}`;
+  displayFilteredNumber(
+    filteredItems,
+    state.allShows,
+    state.allEpisodes,
+    itemType
+  );
 }
 
-function filterShows(filteredItems, shows, searchTerm, itemType) {
-  filteredItems = shows.filter((show) => {
-    const showText = `${show.name} ${show.summary}`.toLowerCase();
-    return showText.includes(searchTerm);
-  });
+function filterShows(filteredItems, shows, searchTerm) {
+  filteredItems.push(
+    ...shows.filter((show) => {
+      const showText = `${show.name} ${show.summary}`.toLowerCase();
+      return showText.includes(searchTerm);
+    })
+  );
   render(filteredItems, createShowCard);
-  itemType = "show";
-  document.querySelector(".display-label").textContent = "Displaying all shows";
+  return "show";
 }
 
-function filterEpisodes(filteredItems, episodes, searchTerm, itemType) {
-  filteredItems = episodes.filter((episode) => {
-    const episodeText = `${episode.name} ${episode.summary}`.toLowerCase();
-    return episodeText.includes(searchTerm);
-  });
+function filterEpisodes(filteredItems, episodes, searchTerm) {
+  filteredItems.push(
+    ...episodes.filter((episode) => {
+      const episodeText = `${episode.name} ${episode.summary}`.toLowerCase();
+      return episodeText.includes(searchTerm);
+    })
+  );
   render(filteredItems, createEpisodeCard);
-  itemType = "episode";
-  document.querySelector(".display-label").textContent =
-    "Displaying all episodes";
+  return "episode";
+}
+
+function displayFilteredNumber(filteredItems, shows, episodes, itemType) {
+  displayNumber.textContent = `${filteredItems.length} / ${
+    episodeDropDown.style.display === "none" ? shows.length : episodes.length
+  } ${itemType}${filteredItems.length !== 1 ? "s" : ""}`;
 }
 
 export { handleSearchAndFilter };
