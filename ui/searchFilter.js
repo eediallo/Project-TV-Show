@@ -4,19 +4,22 @@ import { state } from "../data/state.js";
 
 function handleSearchAndFilter(showsOrEpisodes, createCard) {
   const searchTerm = searchInput.value.toLowerCase();
-  const selectedEpisode = episodeSelector.value.toLowerCase();
+  const selectedEpisodeOrShow = episodeSelector.value.toLowerCase();
   state.searchTerm =
-    selectedEpisode === "all-episode" ? searchTerm : selectedEpisode;
+    selectedEpisodeOrShow === "all-episode"
+      ? searchTerm
+      : selectedEpisodeOrShow;
 
-  const filteredEpisodes = showsOrEpisodes.filter((episode) => {
-    const episodeText = `${episode.name} ${episode.summary}`.toLowerCase();
-    return episodeText.includes(state.searchTerm);
+  const filteredEpisodesOrShows = showsOrEpisodes.filter((episodeOrShow) => {
+    const episodeOrShowText =
+      `${episodeOrShow.name} ${episodeOrShow.summary}`.toLowerCase();
+    return episodeOrShowText.includes(state.searchTerm);
   });
 
-  render(filteredEpisodes, createCard);
-  displayNumber.textContent = `${filteredEpisodes.length} / ${
+  render(filteredEpisodesOrShows, createCard);
+  displayNumber.textContent = `${filteredEpisodesOrShows.length} / ${
     showsOrEpisodes.length
-  } episode${filteredEpisodes.length !== 1 ? "s" : ""}`;
+  } episode${filteredEpisodesOrShows.length !== 1 ? "s" : ""}`;
 }
 
 export { handleSearchAndFilter };
