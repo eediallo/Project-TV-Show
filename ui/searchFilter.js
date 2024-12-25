@@ -1,4 +1,4 @@
-import { renderEpisodes } from "./episodes/renderEpisodes.js";
+import { render } from "./episodes/renderEpisodes.js";
 import { searchInput, episodeSelector, displayNumber } from "./domElements.js";
 import { state } from "../data/state.js";
 
@@ -13,7 +13,7 @@ function handleSearchAndFilter() {
     return episodeText.includes(state.searchTerm);
   });
 
-  renderEpisodes(filteredEpisodes);
+  render(filteredEpisodes);
   displayNumber.textContent = `${filteredEpisodes.length} / ${
     state.allEpisodes.length
   } episode${filteredEpisodes.length !== 1 ? "s" : ""}`;
