@@ -1,4 +1,4 @@
-import { showSeletor } from "../domElements.js";
+import { showSelector } from "../domElements.js";
 
 function createShowOption(show) {
   const showOption = document.createElement("option");
@@ -9,7 +9,7 @@ function createShowOption(show) {
 
 function renderShowsOptions(shows) {
   const showOptions = shows.map(createShowOption);
-  showSeletor.append(...showOptions);
+  showSelector.append(...showOptions);
 }
 
 export { renderShowsOptions };

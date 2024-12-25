@@ -2,9 +2,10 @@ import { getShows } from "./data/getShows.js";
 import {
   searchInput,
   episodeSelector,
-  showSeletor,
+  showSelector,
   episodeDropDown,
   showDropDown,
+  backToShowsBtn,
 } from "./ui/domElements.js";
 import { state } from "./data/state.js";
 import { getEpisodeData } from "./data/getEpisode.js";
@@ -22,19 +23,32 @@ async function setup() {
   addEventListeners();
 }
 
-showSeletor.addEventListener("change", async (e) => {
+async function handleShowChange(e) {
   await getEpisodeData(e.target.value);
 
   episodeDropDown.style.display = "block";
+  backToShowsBtn.style.display = "block";
   showDropDown.style.display = "none";
 
   renderEpisodeOptions(state.allEpisodes);
   render(state.allEpisodes, createEpisodeCard);
-});
+}
+
+async function handleBackToShows() {
+  episodeDropDown.style.display = "none";
+  showDropDown.style.display = "block";
+  backToShowsBtn.style.display = "none";
+  await getShows();
+  renderShowsOptions(state.allShows);
+  render(state.allShows, createShowCard);
+  showSelector.value = "all-shows";
+}
 
 function addEventListeners() {
   searchInput.addEventListener("input", handleSearchAndFilter);
   episodeSelector.addEventListener("change", handleSearchAndFilter);
+  showSelector.addEventListener("change", handleShowChange);
+  backToShowsBtn.addEventListener("click", handleBackToShows);
 }
 
 window.onload = setup;
