@@ -4,8 +4,8 @@ function createEpisodeCard(episode) {
   const episodeCard = document.createElement("section");
   episodeCard.classList.add("episode-card");
 
-  const episodeTitle = document.createElement("div");
-  episodeTitle.classList.add("episode-title");
+  const header = document.createElement("div");
+  header.classList.add("header");
 
   const h1 = document.createElement("h1");
   h1.textContent = episode.name;
@@ -17,8 +17,11 @@ function createEpisodeCard(episode) {
     "season"
   )}${formatSeasonEpisode(episode.number)}`;
 
-  episodeTitle.appendChild(h1);
-  episodeTitle.appendChild(data);
+  header.appendChild(h1);
+  header.appendChild(data);
+
+  const content = document.createElement("div");
+  content.classList.add("content");
 
   const episodeImg = document.createElement("div");
   episodeImg.classList.add("episode-img");
@@ -29,12 +32,12 @@ function createEpisodeCard(episode) {
 
   episodeImg.appendChild(img);
 
-  const p = document.createElement("p");
-  p.innerHTML = episode.summary.replace(/<p>|<\/p>/g, "");
+  const summary = document.createElement("p");
+  summary.classList.add("summary");
+  summary.innerHTML = episode.summary.replace(/<p>|<\/p>/g, "");
 
-  episodeCard.appendChild(episodeTitle);
-  episodeCard.appendChild(episodeImg);
-  episodeCard.appendChild(p);
+  content.append(episodeImg, summary);
+  episodeCard.append(header, content);
 
   return episodeCard;
 }

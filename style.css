@@ -17,10 +17,11 @@ header {
 
 #root {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
+  justify-content: center;
+  align-items: flex-start;
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -29,7 +30,7 @@ header {
 section {
   display: flex;
   flex-direction: column;
-  align-items: cne;
+  align-items: center;
   width: 300px;
   background-color: #ffffff;
   padding: 10px;
@@ -49,7 +50,7 @@ section {
   border: 2px solid #ffffff;
   color: #ffffff;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: bold;
   padding: 0 5px;
   margin-bottom: 5px;
@@ -139,15 +140,6 @@ section {
   text-align: center;
   font-size: 20px;
   color: red;
-}
-
-section {
-  background-color: #f4f4f4;
-  padding: 10px;
-  border-radius: 8px;
-  width: 300px;
-  margin-left: 60px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 select {
