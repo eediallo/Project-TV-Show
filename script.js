@@ -29,7 +29,9 @@ showSeletor.addEventListener("change", async (e) => {
 });
 
 function addEventListeners() {
-  searchInput.addEventListener("input", handleSearchAndFilter);
+  searchInput.addEventListener("input", () => {
+    handleSearchAndFilter(state.allShows, createShowCard);
+  });
   episodeSelector.addEventListener("change", handleSearchAndFilter);
 }
 
