@@ -2,7 +2,7 @@ import { handleBackToShows } from "./backToShows.js";
 import { handleShowChange } from "./showChange.js";
 import { handleSearchAndFilter } from "../ui/searchFilter.js";
 import { searchInput } from "../ui/domElements.js";
-import {filterEpisodesBySelector} from "../ui/episodes/filterEpisodesBySelector.js";
+import { filterEpisodesBySelector } from "../ui/episodes/filterEpisodesBySelector.js";
 import {
   showSelector,
   episodeSelector,
