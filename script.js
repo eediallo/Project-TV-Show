@@ -12,22 +12,23 @@ import { createEpisodeCard } from "./ui/episodes/createEpisodeCard.js";
 async function setup() {
   await getShows();
   renderShowsOptions(state.allShows);
-
   render(state.allShows, createShowCard);
   addEventListeners();
 }
 
 showSeletor.addEventListener("change", async (e) => {
   await getEpisodeData(e.target.value);
-  render(state.allEpisodes, createEpisodeCard);
   renderEpisodeOptions(state.allEpisodes);
+  render(state.allEpisodes, createEpisodeCard);
 });
 
 function addEventListeners() {
   searchInput.addEventListener("input", () => {
     handleSearchAndFilter(state.allShows, createShowCard);
   });
-  episodeSelector.addEventListener("change", handleSearchAndFilter);
+  episodeSelector.addEventListener("change", ()=>{
+    handleSearchAndFilter(state.allEpisodes, createEpisodeCard)
+  })
 }
 
 window.onload = setup;
