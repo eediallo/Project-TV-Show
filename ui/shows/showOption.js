@@ -1,4 +1,4 @@
-import { showSeletor } from "./domElements.js";
+import { showSeletor } from "../domElements.js";
 
 function createShowOption(show) {
   const showOption = document.createElement("option");

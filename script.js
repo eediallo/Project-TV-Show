@@ -2,7 +2,7 @@ import { getShows } from "./data/getShows.js";
 import { searchInput, episodeSelector, showSeletor } from "./ui/domElements.js";
 import { state } from "./data/state.js";
 import { getEpisodeData } from "./data/getEpisode.js";
-import { renderShowsOptions } from "./ui/showOption.js";
+import { renderShowsOptions } from "./ui/shows/showOption.js";
 import { renderEpisodes } from "./ui/episodes/renderEpisodes.js";
 import { renderEpisodeOptions } from "./ui/episodes/renderEpisodeOption.js";
 import { handleSearchAndFilter } from "./ui/searchFilter.js";
@@ -10,6 +10,7 @@ import { handleSearchAndFilter } from "./ui/searchFilter.js";
 async function setup() {
   await getShows();
   renderShowsOptions(state.allShows);
+  // console.log(state);
 
   // await getEpisodeData(1);
   // renderEpisodes(state.allEpisodes);
@@ -18,6 +19,7 @@ async function setup() {
 }
 
 showSeletor.addEventListener("change", async (e) => {
+  console.log(state);
   await getEpisodeData(e.target.value);
   renderEpisodes(state.allEpisodes);
   renderEpisodeOptions(state.allEpisodes);
