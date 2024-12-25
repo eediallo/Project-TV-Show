@@ -6,6 +6,7 @@ import { renderShowsOptions } from "./ui/shows/showOption.js";
 import { render } from "./ui/episodes/renderEpisodes.js";
 import { renderEpisodeOptions } from "./ui/episodes/renderEpisodeOption.js";
 import { handleSearchAndFilter } from "./ui/searchFilter.js";
+import { createShowCard } from "./ui/shows/createShowCard.js";
 
 async function setup() {
   await getShows();
@@ -13,7 +14,7 @@ async function setup() {
   console.log(state);
 
   await getEpisodeData(1);
-  render(state.allShows);
+  render(state.allShows, createShowCard);
   renderEpisodeOptions(state.allEpisodes);
   addEventListeners();
 }
@@ -23,7 +24,7 @@ showSeletor.addEventListener("change", async (e) => {
     console.log(show);
   }
   await getEpisodeData(e.target.value);
-  render(state.allEpisodes);
+  render(state.allEpisodes, createShowCard);
   renderEpisodeOptions(state.allEpisodes);
 });
 
