@@ -17,11 +17,10 @@ header {
 
 #root {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
   gap: 20px;
   padding: 20px;
-  justify-content: center;
-  align-items: flex-start;
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -50,7 +49,7 @@ section {
   border: 2px solid #ffffff;
   color: #ffffff;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: bold;
   padding: 0 5px;
   margin-bottom: 5px;
@@ -143,25 +142,71 @@ section {
 }
 
 section {
-  background-color: #f4f4f4; 
-  padding: 10px; 
+  background-color: #f4f4f4;
+  padding: 10px;
   border-radius: 8px;
   width: 300px;
-  margin-left: 60px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  margin-left: 60px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 select {
-  width: 100%; 
-  padding: 10px; 
-  font-size: 16px; 
-  border: 1px solid #ccc; 
-  border-radius: 4px; 
-  background-color: #fff; 
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
   transition: border-color 0.3s ease-in-out;
 }
 
 select:focus {
-  border-color: #007bff; 
-  outline: none; 
+  border-color: #007bff;
+  outline: none;
+}
+
+.show-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: 90%;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.show-card .header {
+  width: 100%;
+}
+
+.show-card .header h1 {
+  margin: 0;
+  font-size: 24px;
+  text-align: center;
+}
+
+.show-card .content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+}
+
+.show-card img {
+  width: 150px;
+  height: auto;
+  object-fit: cover;
+}
+
+.show-card .summary {
+  flex: 1;
+}
+
+.show-card .details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
