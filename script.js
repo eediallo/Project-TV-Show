@@ -1,4 +1,4 @@
-import { getShows } from "./js/shows.js";
+import { getShows } from "./js/getShows.js";
 import {
   searchInput,
   displayNumber,
@@ -7,7 +7,7 @@ import {
   rootElement,
 } from "./js/domElements.js";
 import { state } from "./js/state.js";
-import { getEpisodeData } from "./js/episodes.js";
+import { getEpisodeData } from "./js/getEpisode.js";
 import { renderShows } from "./ui/showOption.js";
 
 function messageForUser(message, parentEl, id) {
