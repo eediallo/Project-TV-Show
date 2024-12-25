@@ -47,7 +47,13 @@ async function handleBackToShows() {
 
 function addEventListeners() {
   searchInput.addEventListener("input", handleSearchAndFilter);
-  episodeSelector.addEventListener("change", filterEpisodesBySelector);
+  episodeSelector.addEventListener("change", () => {
+    if (episodeSelector.value.toLowerCase() === "all-episodes") {
+      render(state.allEpisodes, createEpisodeCard);
+    } else {
+      filterEpisodesBySelector();
+    }
+  });
   showSelector.addEventListener("change", handleShowChange);
   backToShowsBtn.addEventListener("click", handleBackToShows);
 }
