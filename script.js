@@ -3,7 +3,7 @@ import { searchInput, episodeSelector, showSeletor } from "./ui/domElements.js";
 import { state } from "./data/state.js";
 import { getEpisodeData } from "./data/getEpisode.js";
 import { renderShowsOptions } from "./ui/shows/showOption.js";
-import { render } from "./ui/episodes/renderEpisodes.js";
+import { render } from "./ui/render.js";
 import { renderEpisodeOptions } from "./ui/episodes/renderEpisodeOption.js";
 import { handleSearchAndFilter } from "./ui/searchFilter.js";
 import { createShowCard } from "./ui/shows/createShowCard.js";

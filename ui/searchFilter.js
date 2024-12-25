@@ -1,4 +1,4 @@
-import { render } from "./episodes/renderEpisodes.js";
+import { render } from "./render.js";
 import { searchInput, episodeSelector, displayNumber } from "./domElements.js";
 import { state } from "../data/state.js";
 

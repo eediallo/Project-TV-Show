@@ -1,4 +1,4 @@
-import { rootElement } from "../domElements.js";
+import { rootElement } from "./domElements.js";
 
 function render(showsOrEpisodes, createCard) {
   rootElement.innerHTML = "";
