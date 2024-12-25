@@ -1,7 +1,7 @@
-import { getShows } from "./js/getShows.js";
+import { getShows } from "./data/getShows.js";
 import { searchInput, episodeSelector, showSeletor } from "./ui/domElements.js";
-import { state } from "./js/state.js";
-import { getEpisodeData } from "./js/getEpisode.js";
+import { state } from "./data/state.js";
+import { getEpisodeData } from "./data/getEpisode.js";
 import { renderShows } from "./ui/showOption.js";
 import { renderEpisodes } from "./ui/episodes/renderEpisodes.js";
 import { renderEpisodeOptions } from "./ui/episodes/renderEpisodeOption.js";

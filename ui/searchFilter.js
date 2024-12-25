@@ -1,6 +1,6 @@
 import { renderEpisodes } from "./episodes/renderEpisodes.js";
 import { searchInput, episodeSelector, displayNumber } from "./domElements.js";
-import { state } from "../js/state.js";
+import { state } from "../data/state.js";
 
 function handleSearchAndFilter() {
   const searchTerm = searchInput.value.toLowerCase();
