@@ -8,6 +8,7 @@ import {
 } from "./js/domElements.js";
 import { state } from "./js/state.js";
 import { getEpisodeData } from "./js/episodes.js";
+import { renderShows } from "./ui/showOption.js";
 
 function messageForUser(message, parentEl, id) {
   const pElement = document.createElement("p");
@@ -15,42 +16,6 @@ function messageForUser(message, parentEl, id) {
   pElement.setAttribute("id", id);
   parentEl.appendChild(pElement);
 }
-
-// async function getEpisodesData(id) {
-//   if (state.isLoading) {
-//     console.warn("Fetch already in progress. Please wait.");
-//     return;
-//   }
-//   const url = `https://api.tvmaze.com/shows/${id}/episodes`;
-//   messageForUser(
-//     "Please wait while episodes data finish loading...",
-//     rootElement,
-//     "loadMsg"
-//   );
-//   try {
-//     state.isLoading = true;
-//     const response = await fetch(url);
-//     if (!response.ok) {
-//       throw new Error(`Response Status: ${response.status}`);
-//     }
-
-//     const episodes = await response.json();
-//     state.allEpisodes = episodes; // update allEpisodes in state
-//   } catch (error) {
-//     console.error(error.message);
-//     messageForUser(
-//       "Episodes failed to load, please refresh the page.",
-//       document.body,
-//       "errLoadMsg"
-//     );
-//     document.body.appendChild(errorMessage);
-//   } finally {
-//     state.isLoading = false;
-//     if (state.isLoading) {
-//       loadingMessage.remove();
-//     }
-//   }
-// }
 
 async function setup() {
   await getShows();
@@ -64,20 +29,20 @@ async function setup() {
 
 // ==================== Shows ==================================================
 
-function createShowOption(show) {
-  const showOption = document.createElement("option");
-  showOption.value = show.id;
-  showOption.textContent = `${show.id} - ${show.name}`;
-  return showOption;
-}
+// function createShowOption(show) {
+//   const showOption = document.createElement("option");
+//   showOption.value = show.id;
+//   showOption.textContent = `${show.id} - ${show.name}`;
+//   return showOption;
+// }
 
-function renderShows(shows) {
-  const showOptions = shows.map(createShowOption);
-  showSeletor.append(...showOptions);
-}
+// function renderShows(shows) {
+//   const showOptions = shows.map(createShowOption);
+//   showSeletor.append(...showOptions);
+// }
 
 showSeletor.addEventListener("change", async (e) => {
-  await getEpisodesData(e.target.value);
+  await getEpisodeData(e.target.value);
   renderEpisodes(state.allEpisodes);
   renderEpisodeOptions(state.allEpisodes);
 });
