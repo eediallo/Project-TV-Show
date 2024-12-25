@@ -1,4 +1,4 @@
-import { formatSeasonEpisode } from "../../script.js";
+import { formatSeasonEpisode } from "../formatSeasonEpi.js";
 
 function createEpisodeCard(episode) {
   const episodeCard = document.createElement("section");
