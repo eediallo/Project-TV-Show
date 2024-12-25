@@ -9,6 +9,8 @@ import {
 import { state } from "./js/state.js";
 import { getEpisodeData } from "./js/getEpisode.js";
 import { renderShows } from "./ui/showOption.js";
+import {renderEpisodes} from './ui/episodes/renderEpisodes.js'
+import { renderEpisodeOptions } from "./ui/episodes/renderEpisodeOption.js";
 
 function messageForUser(message, parentEl, id) {
   const pElement = document.createElement("p");
@@ -48,23 +50,23 @@ showSeletor.addEventListener("change", async (e) => {
 });
 // ====================== Episodes =============================================
 
-function renderEpisodes(episodes) {
-  rootElement.innerHTML = "";
-  const episodeCards = episodes.map(createEpisodeCard);
-  rootElement.append(...episodeCards);
-}
+// function renderEpisodes(episodes) {
+//   rootElement.innerHTML = "";
+//   const episodeCards = episodes.map(createEpisodeCard);
+//   rootElement.append(...episodeCards);
+// }
 
-function renderEpisodeOptions(episodes) {
-  const episodeSelector = document.getElementById("episode-selector");
-  episodeSelector.innerHTML = "";
-  const allOption = document.createElement("option");
-  allOption.value = "all-episode";
-  allOption.textContent = "All Episodes";
-  episodeSelector.appendChild(allOption);
+// function renderEpisodeOptions(episodes) {
+//   const episodeSelector = document.getElementById("episode-selector");
+//   episodeSelector.innerHTML = "";
+//   const allOption = document.createElement("option");
+//   allOption.value = "all-episode";
+//   allOption.textContent = "All Episodes";
+//   episodeSelector.appendChild(allOption);
 
-  const episodeOptions = episodes.map(createEpisodeOption);
-  episodeSelector.append(...episodeOptions);
-}
+//   const episodeOptions = episodes.map(createEpisodeOption);
+//   episodeSelector.append(...episodeOptions);
+// }
 
 function addEventListeners() {
   searchInput.addEventListener("input", handleSearchAndFilter);
@@ -88,53 +90,53 @@ function handleSearchAndFilter() {
   } episode${filteredEpisodes.length !== 1 ? "s" : ""}`;
 }
 
-function createEpisodeCard(episode) {
-  const episodeCard = document.createElement("section");
-  episodeCard.classList.add("episode-card");
+// function createEpisodeCard(episode) {
+//   const episodeCard = document.createElement("section");
+//   episodeCard.classList.add("episode-card");
 
-  const episodeTitle = document.createElement("div");
-  episodeTitle.classList.add("episode-title");
+//   const episodeTitle = document.createElement("div");
+//   episodeTitle.classList.add("episode-title");
 
-  const h1 = document.createElement("h1");
-  h1.textContent = episode.name;
+//   const h1 = document.createElement("h1");
+//   h1.textContent = episode.name;
 
-  const data = document.createElement("data");
-  data.setAttribute("data-season-episode", "");
-  data.textContent = `- ${formatSeasonEpisode(
-    episode.season,
-    "season"
-  )}${formatSeasonEpisode(episode.number)}`;
+//   const data = document.createElement("data");
+//   data.setAttribute("data-season-episode", "");
+//   data.textContent = `- ${formatSeasonEpisode(
+//     episode.season,
+//     "season"
+//   )}${formatSeasonEpisode(episode.number)}`;
 
-  episodeTitle.appendChild(h1);
-  episodeTitle.appendChild(data);
+//   episodeTitle.appendChild(h1);
+//   episodeTitle.appendChild(data);
 
-  const episodeImg = document.createElement("div");
-  episodeImg.classList.add("episode-img");
+//   const episodeImg = document.createElement("div");
+//   episodeImg.classList.add("episode-img");
 
-  const img = document.createElement("img");
-  img.setAttribute("src", episode.image.medium);
-  img.setAttribute("alt", "episode image");
+//   const img = document.createElement("img");
+//   img.setAttribute("src", episode.image.medium);
+//   img.setAttribute("alt", "episode image");
 
-  episodeImg.appendChild(img);
+//   episodeImg.appendChild(img);
 
-  const p = document.createElement("p");
-  p.innerHTML = episode.summary.replace(/<p>|<\/p>/g, "");
+//   const p = document.createElement("p");
+//   p.innerHTML = episode.summary.replace(/<p>|<\/p>/g, "");
 
-  episodeCard.appendChild(episodeTitle);
-  episodeCard.appendChild(episodeImg);
-  episodeCard.appendChild(p);
+//   episodeCard.appendChild(episodeTitle);
+//   episodeCard.appendChild(episodeImg);
+//   episodeCard.appendChild(p);
 
-  return episodeCard;
-}
+//   return episodeCard;
+// }
 
-function createEpisodeOption(episode) {
-  const episodeOption = document.createElement("option");
-  episodeOption.value = episode.name;
-  const formattedSeason = formatSeasonEpisode(episode.season, "season");
-  const formattedEpisode = formatSeasonEpisode(episode.number);
-  episodeOption.textContent = `${formattedSeason}${formattedEpisode} - ${episode.name}`;
-  return episodeOption;
-}
+// function createEpisodeOption(episode) {
+//   const episodeOption = document.createElement("option");
+//   episodeOption.value = episode.name;
+//   const formattedSeason = formatSeasonEpisode(episode.season, "season");
+//   const formattedEpisode = formatSeasonEpisode(episode.number);
+//   episodeOption.textContent = `${formattedSeason}${formattedEpisode} - ${episode.name}`;
+//   return episodeOption;
+// }
 
 function formatSeasonEpisode(seasonOrEpisode, type) {
   const prefix = type === "season" ? "S" : "E";
@@ -143,4 +145,5 @@ function formatSeasonEpisode(seasonOrEpisode, type) {
     : `${prefix}${seasonOrEpisode}`;
 }
 
+export { formatSeasonEpisode };
 window.onload = setup;
