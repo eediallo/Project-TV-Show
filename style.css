@@ -51,16 +51,16 @@ section {
 .search-panel {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 10px;
   padding: 3px 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
-  max-width: 700px;
   background-color: #f9f9f9;
+  width: 700px;
   position: relative;
   left: 0;
-  margin: 10px;
+  margin: 0 auto;
 }
 
 .search-panel label {
@@ -131,7 +131,6 @@ select:focus {
   outline: none;
 }
 
-
 .episode-and-back-to-show-btn {
   display: flex;
   gap: 20px;
@@ -158,4 +157,9 @@ select:focus {
 #back-to-shows-btn:active {
   background-color: #004494;
   transform: scale(1);
+}
+
+#show-drop-down {
+  max-width: 700px;
+  margin: 30px auto;
 }
