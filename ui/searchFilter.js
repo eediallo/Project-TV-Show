@@ -26,7 +26,7 @@ function handleSearchAndFilter() {
 function filterShows(filteredItems, shows, searchTerm) {
   filteredItems.push(
     ...shows.filter((show) => {
-      const showText = `${show.name} ${show.summary}`.toLowerCase();
+      const showText = `${show.name} ${show.summary} ${show.genres}`.toLowerCase();
       return showText.includes(searchTerm);
     })
   );
