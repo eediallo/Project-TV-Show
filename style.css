@@ -131,48 +131,31 @@ select:focus {
   outline: none;
 }
 
-.show-card {
+
+.episode-and-back-to-show-btn {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   gap: 20px;
-  width: 90%;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  background-color: #ffffff;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
 }
 
-.show-card .header {
-  width: 100%;
+#back-to-shows-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s;
 }
 
-.show-card .header h1 {
-  margin: 0;
-  font-size: 24px;
-  text-align: center;
+#back-to-shows-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
-.show-card .content {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 20px;
-  width: 100%;
-}
-
-.show-card img {
-  width: 150px;
-  height: auto;
-  object-fit: cover;
-}
-
-.show-card .summary {
-  flex: 1;
-}
-
-.show-card .details {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+#back-to-shows-btn:active {
+  background-color: #004494;
+  transform: scale(1);
 }
