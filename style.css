@@ -96,7 +96,7 @@ section {
   color: #4f3e52;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   #root {
     gap: 10px;
   }
