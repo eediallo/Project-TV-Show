@@ -61,15 +61,18 @@
     display: block;
     width: 100%;
   }
+  
 
   .show-card img {
-    width: 50%;
+    width: 30%;
     height: auto;
     object-fit: cover;
     border-radius: 10px;
     margin: 0 auto;
+    display: block;
   }
 }
+
 
 @media screen and (max-width: 600px){
   show-card img {
@@ -77,5 +80,7 @@
     height: auto;
     object-fit: cover;
     border-radius: 10px;
+    margin: 0 auto;
+    display: block;
   }
 }
