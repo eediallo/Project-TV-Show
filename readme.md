@@ -1,6 +1,6 @@
 # TV Show Project
 
-This project is a web application that fetches and displays data about TV shows and their episodes. The data is sourced from the TVmaze API, and the application allows users to explore shows, view episode details, and search for specific content.
+This project is a web application that fetches and displays data about TV shows and their episodes. The data is sourced from the [TVmaze API](https://www.tvmaze.com/api), and the application allows users to explore shows, view episode details, and search for specific content.
 
 ## Features
 
